@@ -20,18 +20,12 @@
 package org.jboss.benchmark.shared;
 
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
-import org.openjdk.jmh.runner.options.Options;
 
 /**
- * Iterates through the {@link ChainedOptionsBuilder}'s and runs each set of options in a new
+ * Provides options for running benchmarks. Each {@link ChainedOptionsBuilder} will be processed in a new
  * {@linkplain org.openjdk.jmh.runner.Runner runner}.
- *
- * <p>Note that the {@linkplain ChainedOptionsBuilder#parent(Options) parent} will always be set to the
- * {@link org.openjdk.jmh.runner.options.CommandLineOptions ComandLineOptions} from the entry point. This means that
- * options on the command line will <em>not</em> override options in the defined options.
- * </p>
  *
  * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
  */
-public interface AggregateOptions extends Iterable<ChainedOptionsBuilder> {
+public interface RunnerOptions extends Iterable<ChainedOptionsBuilder> {
 }
