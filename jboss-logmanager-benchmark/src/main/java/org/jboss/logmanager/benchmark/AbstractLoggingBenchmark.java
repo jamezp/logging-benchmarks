@@ -63,8 +63,8 @@ public abstract class AbstractLoggingBenchmark {
     @Benchmark
     public void logInfoAndDebug() {
         final String message = "This is a test message";
-        LOGGER.log(FQCN, Level.INFO, message, ExtLogRecord.FormatStyle.PRINTF, null, null);
-        LOGGER.log(FQCN, Level.DEBUG, message, ExtLogRecord.FormatStyle.PRINTF, null, null);
+        LOGGER.log(FQCN, Level.INFO, message, ExtLogRecord.FormatStyle.NO_FORMAT, null, null);
+        LOGGER.log(FQCN, Level.DEBUG, message, ExtLogRecord.FormatStyle.NO_FORMAT, null, null);
     }
 
     static class BlackholeHandler extends ExtHandler {
