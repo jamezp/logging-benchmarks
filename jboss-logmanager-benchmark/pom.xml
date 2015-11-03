@@ -30,11 +30,15 @@
 
     <artifactId>jboss-logmanager-benchmark</artifactId>
 
+    <properties>
+        <version.org.jboss.logmanager>2.0.3.Final</version.org.jboss.logmanager>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.jboss.logmanager</groupId>
             <artifactId>jboss-logmanager</artifactId>
-            <version>2.0.0.Final</version>
+            <version>${version.org.jboss.logmanager}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging.benchmarks</groupId>
@@ -49,6 +53,12 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <optional>true</optional>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -71,7 +81,7 @@
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
-                                        <Main-Class>org.jboss.benchmark.shared.MainEntry</Main-Class>
+                                        <Main-Class>org.jboss.benchmark.shared.BenchmarkRunner</Main-Class>
                                     </manifestEntries>
                                 </transformer>
                             </transformers>

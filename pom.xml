@@ -37,6 +37,7 @@
     <description>Benchmarks for JBoss Logging Projects</description>
 
     <properties>
+        <version.junit>4.12</version.junit>
         <version.org.jboss.jdeparser>2.0.0.Final</version.org.jboss.jdeparser>
         <version.org.openjdk.jmh>1.10.4</version.org.openjdk.jmh>
 
@@ -70,6 +71,13 @@
                 <groupId>org.openjdk.jmh</groupId>
                 <artifactId>jmh-generator-annprocess</artifactId>
                 <version>${version.org.openjdk.jmh}</version>
+            </dependency>
+
+            <!-- Test dependencies -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
