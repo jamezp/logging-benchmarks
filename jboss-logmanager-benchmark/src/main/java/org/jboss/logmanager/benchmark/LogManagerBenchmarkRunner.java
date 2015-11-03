@@ -34,9 +34,9 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
  */
 @ServiceProvider(RunnerOptions.class)
-public class LoggerBenchmark implements RunnerOptions {
+public class LogManagerBenchmarkRunner implements RunnerOptions {
 
-    protected static final String[] JVM_ARGS = {
+    static final String[] JVM_ARGS = {
             "-Xms768m", "-Xmx768m",
             "-XX:+HeapDumpOnOutOfMemoryError",
             "-Djava.util.logging.manager=org.jboss.logmanager.LogManager"
@@ -44,17 +44,15 @@ public class LoggerBenchmark implements RunnerOptions {
 
     private final Collection<ChainedOptionsBuilder> options;
 
-    public LoggerBenchmark() {
-        final String includeRegex = Pattern.quote(DefaultLoggerBenchmark.class.getName()) + "|" +
-                Pattern.quote(ThreadLocalFilterLoggerBenchmark.class.getName());
+    public LogManagerBenchmarkRunner() {
         this.options = Arrays.asList(
                 new OptionsBuilder()
                         .jvmArgsPrepend(JVM_ARGS)
-                        .include(includeRegex),
+                        .include(".*Benchmark"),
                 new OptionsBuilder()
                         .jvmArgsAppend("-D" + LogManager.PER_THREAD_LOG_FILTER_KEY + "=true")
                         .jvmArgsPrepend(JVM_ARGS)
-                        .include(includeRegex)
+                        .include(Pattern.quote(DefaultLoggerBenchmark.class.getName()) + "|" + Pattern.quote(ThreadLocalFilterLoggerBenchmark.class.getName()))
         );
     }
 

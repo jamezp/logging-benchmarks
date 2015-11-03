@@ -21,14 +21,8 @@ package org.jboss.logmanager.benchmark;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
-import org.jboss.annotations.ServiceProvider;
-import org.jboss.benchmark.shared.RunnerOptions;
 import org.jboss.logmanager.LogContext;
 import org.jboss.logmanager.PropertyConfigurator;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -39,8 +33,6 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
-import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
  * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
@@ -48,32 +40,10 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
-@ServiceProvider(RunnerOptions.class)
-public class ConfigurationWriterBenchmark implements RunnerOptions {
-
-    protected static final String[] JVM_ARGS = {
-            "-Xms768m", "-Xmx768m",
-            "-XX:+HeapDumpOnOutOfMemoryError",
-            "-Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-    };
-
-    private final Collection<ChainedOptionsBuilder> options;
+public class ConfigurationWriterBenchmark {
 
     private BlackholeOutputStream out;
     private PropertyConfigurator propertyConfigurator;
-
-    public ConfigurationWriterBenchmark() {
-        this.options = Collections.singletonList(
-                new OptionsBuilder()
-                        .jvmArgsPrepend(JVM_ARGS)
-                        .include(Pattern.quote(ConfigurationWriterBenchmark.class.getName()))
-        );
-    }
-
-    @Override
-    public Iterator<ChainedOptionsBuilder> iterator() {
-        return options.iterator();
-    }
 
     @Setup
     public void setup() throws IOException {

@@ -45,9 +45,7 @@ import org.openjdk.jmh.infra.Blackhole;
 @State(Scope.Thread)
 public abstract class AbstractLoggingBenchmark {
 
-    static final String FQCN = AbstractLoggingBenchmark.class.getPackage().getName();
-
-    private final static Logger LOGGER = Logger.getLogger(FQCN);
+    private final static Logger LOGGER = Logger.getLogger(Environment.FQCN);
 
     @Setup
     public void setup() throws IOException {
@@ -63,8 +61,8 @@ public abstract class AbstractLoggingBenchmark {
     @Benchmark
     public void logInfoAndDebug() {
         final String message = "This is a test message";
-        LOGGER.log(FQCN, Level.INFO, message, ExtLogRecord.FormatStyle.NO_FORMAT, null, null);
-        LOGGER.log(FQCN, Level.DEBUG, message, ExtLogRecord.FormatStyle.NO_FORMAT, null, null);
+        LOGGER.log(Environment.FQCN, Level.INFO, message, ExtLogRecord.FormatStyle.NO_FORMAT, null, null);
+        LOGGER.log(Environment.FQCN, Level.DEBUG, message, ExtLogRecord.FormatStyle.NO_FORMAT, null, null);
     }
 
     static class BlackholeHandler extends ExtHandler {
