@@ -19,8 +19,28 @@
 
 package org.jboss.logmanager.benchmark;
 
+import java.io.IOException;
+
+import org.jboss.logmanager.Level;
+import org.jboss.logmanager.LogManager;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.TearDown;
+
 /**
  * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
  */
-public class DefaultLoggerBenchmark extends AbstractLoggingBenchmark {
+public class LoggerThreadLocalFilterBenchmark extends LoggerBenchmark {
+
+    @Setup
+    public void setupFilter() throws IOException {
+        LogManager.setThreadLocalLogLevel(record -> {
+            final int l = record.getLevel().intValue();
+            return l == Level.DEBUG.intValue();
+        });
+    }
+
+    @TearDown
+    public void tearDownFilter() {
+        LogManager.setThreadLocalLogLevel(null);
+    }
 }

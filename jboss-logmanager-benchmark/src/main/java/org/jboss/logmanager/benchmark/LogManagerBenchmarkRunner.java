@@ -52,7 +52,7 @@ public class LogManagerBenchmarkRunner implements RunnerOptions {
                 new OptionsBuilder()
                         .jvmArgsAppend("-D" + LogManager.PER_THREAD_LOG_FILTER_KEY + "=true")
                         .jvmArgsPrepend(JVM_ARGS)
-                        .include(Pattern.quote(DefaultLoggerBenchmark.class.getName()) + "|" + Pattern.quote(ThreadLocalFilterLoggerBenchmark.class.getName()))
+                        .include(Pattern.quote(LoggerBenchmark.class.getName()) + "|" + Pattern.quote(LoggerThreadLocalFilterBenchmark.class.getName()))
         );
     }
 

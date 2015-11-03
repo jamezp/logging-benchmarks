@@ -43,7 +43,7 @@ import org.openjdk.jmh.infra.Blackhole;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Thread)
-public abstract class AbstractLoggingBenchmark {
+public class LoggerBenchmark {
 
     private final static Logger LOGGER = Logger.getLogger(Environment.FQCN);
 
