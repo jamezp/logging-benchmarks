@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source.
  *
- * Copyright 2015 Red Hat, Inc., and individual contributors
+ * Copyright 2016 Red Hat, Inc., and individual contributors
  * as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,26 +17,22 @@
  * limitations under the License.
  */
 
-package org.jboss.annotations;
+package org.jboss.logging.benchmark;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
 
 /**
  * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
  */
-@Retention(RetentionPolicy.CLASS)
-@Target(ElementType.TYPE)
-@Documented
-public @interface ServiceProvider {
-
-    /**
-     * The class this provider is for.
-     *
-     * @return the class this provider implements or extends
-     */
-    Class<?> value();
+@Fork(jvmArgs = {
+        "-server",
+        "-Dorg.jboss.logging.provider=slf4j",
+})
+@BenchmarkMode({Mode.Throughput})
+@State(Scope.Benchmark)
+public class LogbackLevelCheckBenchmark extends LevelCheckBenchmark {
 }

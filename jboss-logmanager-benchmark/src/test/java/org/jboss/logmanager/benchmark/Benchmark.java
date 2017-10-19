@@ -19,17 +19,6 @@
 
 package org.jboss.logmanager.benchmark;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.regex.Pattern;
-
-import org.jboss.benchmark.shared.BenchmarkRunner;
-import org.jboss.logmanager.LogManager;
-import org.junit.AfterClass;
-import org.junit.Test;
-import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
-
 /**
  * Allows benchmarks to be run in tests or run a single benchmark at a time.
  *
@@ -37,7 +26,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  */
 public class Benchmark {
 
-    private static final BenchmarkRunner runner = new BenchmarkRunner();
+    /*private static final BenchmarkRunner runner = new BenchmarkRunner();
 
     @AfterClass
     public static void printResults() {
@@ -111,5 +100,5 @@ public class Benchmark {
             }
         }
         return result.toString();
-    }
+    }*/
 }

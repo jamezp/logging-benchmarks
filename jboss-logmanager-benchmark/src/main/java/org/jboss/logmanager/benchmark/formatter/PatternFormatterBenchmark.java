@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source.
  *
- * Copyright 2015 Red Hat, Inc., and individual contributors
+ * Copyright 2017 Red Hat, Inc., and individual contributors
  * as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,22 +17,28 @@
  * limitations under the License.
  */
 
-package org.jboss.logmanager.benchmark;
+package org.jboss.logmanager.benchmark.formatter;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 
-import org.jboss.logmanager.handlers.FileHandler;
-import org.jboss.logmanager.handlers.PeriodicRotatingFileHandler;
+import org.jboss.logmanager.ExtFormatter;
+import org.jboss.logmanager.formatters.PatternFormatter;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
 
 /**
  * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
  */
-// TODO (jrp) this doesn't actually rotate
-public class PeriodicRotatingFileHandlerBenchmark extends AbstractFileRotationBenchmark {
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+@State(Scope.Benchmark)
+public class PatternFormatterBenchmark extends AbstractFormatterBenchmark {
 
     @Override
-    protected FileHandler createFileHandler(final Path tempLogFile) throws FileNotFoundException {
-        return new PeriodicRotatingFileHandler(tempLogFile.toFile(), ".dd", false);
+    ExtFormatter createFormatter() {
+        return new PatternFormatter("%d %-5p [%c] (%t) %s%e%n");
     }
 }

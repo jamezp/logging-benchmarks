@@ -24,5 +24,8 @@ package org.jboss.logmanager.benchmark;
  */
 public class Environment {
 
-    static final String FQCN = Environment.class.getPackage().getName();
+    public static final String FQCN = Environment.class.getPackage().getName();
+    static {
+        System.setProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager");
+    }
 }

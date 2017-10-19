@@ -46,8 +46,8 @@ public class ConfigurationWriterBenchmark {
     private PropertyConfigurator propertyConfigurator;
 
     @Setup
-    public void setup() throws IOException {
-        out = new BlackholeOutputStream();
+    public void setup(final Blackhole bh) throws IOException {
+        out = new BlackholeOutputStream(bh);
         propertyConfigurator = new PropertyConfigurator(LogContext.create());
         propertyConfigurator.configure(ConfigurationWriterBenchmark.class.getResourceAsStream("/simple-logging.properties"));
     }
@@ -58,9 +58,10 @@ public class ConfigurationWriterBenchmark {
     }
 
     static class BlackholeOutputStream extends OutputStream {
-        private final Blackhole bh = new Blackhole();
+        private final Blackhole bh;
 
-        public BlackholeOutputStream() {
+        BlackholeOutputStream(final Blackhole bh) {
+            this.bh = bh;
         }
 
         @Override

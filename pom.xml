@@ -39,15 +39,15 @@
     <properties>
         <version.junit>4.12</version.junit>
         <version.org.jboss.jdeparser>2.0.0.Final</version.org.jboss.jdeparser>
-        <version.org.openjdk.jmh>1.10.4</version.org.openjdk.jmh>
+        <version.org.openjdk.jmh>1.19</version.org.openjdk.jmh>
 
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
     <modules>
+        <module>jboss-logging-benchmark</module>
         <module>jboss-logmanager-benchmark</module>
-        <module>shared</module>
     </modules>
 
     <dependencyManagement>

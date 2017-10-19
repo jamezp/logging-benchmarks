@@ -1,0 +1,64 @@
+/*
+ * JBoss, Home of Professional Open Source.
+ *
+ * Copyright 2016 Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.jboss.logmanager.benchmark;
+
+import java.util.logging.ErrorManager;
+import java.util.logging.Formatter;
+
+import org.jboss.logmanager.ExtHandler;
+import org.jboss.logmanager.ExtLogRecord;
+import org.openjdk.jmh.infra.Blackhole;
+
+/**
+ * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
+ */
+class BlackholeHandler extends ExtHandler {
+    private final Blackhole bh;
+    private final Object outputLock = new Object();
+
+    BlackholeHandler(final Blackhole bh) {
+        this.bh = bh;
+    }
+
+    @Override
+    protected void doPublish(final ExtLogRecord record) {
+        final String formatted;
+        final Formatter formatter = getFormatter();
+        try {
+            formatted = formatter.format(record);
+        } catch (Exception ex) {
+            reportError("Formatting error", ex, ErrorManager.FORMAT_FAILURE);
+            return;
+        }
+        if (formatted.length() == 0) {
+            // nothing to write; don't bother
+            return;
+        }
+        try {
+            synchronized (outputLock) {
+                bh.consume(formatted);
+                // only flush if something was written
+                super.doPublish(record);
+            }
+        } catch (Exception ex) {
+            reportError("Error writing log message", ex, ErrorManager.WRITE_FAILURE);
+        }
+    }
+}

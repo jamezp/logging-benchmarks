@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source.
  *
- * Copyright 2015 Red Hat, Inc., and individual contributors
+ * Copyright 2016 Red Hat, Inc., and individual contributors
  * as indicated by the @author tags.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,15 +17,22 @@
  * limitations under the License.
  */
 
-package org.jboss.benchmark.shared;
+package org.jboss.logging.benchmark;
 
-import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
 
 /**
- * Provides options for running benchmarks. Each {@link ChainedOptionsBuilder} will be processed in a new
- * {@linkplain org.openjdk.jmh.runner.Runner runner}.
- *
  * @author <a href="mailto:jperkins@redhat.com">James R. Perkins</a>
  */
-public interface RunnerOptions extends Iterable<ChainedOptionsBuilder> {
+@Fork(jvmArgs = {
+        "-server",
+        "-Dorg.jboss.logging.provider=log4j2"
+})
+@BenchmarkMode({Mode.Throughput})
+@State(Scope.Benchmark)
+public class Log4j2LevelCheckBenchmark extends LevelCheckBenchmark {
 }
