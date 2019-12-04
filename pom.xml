@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>19</version>
+        <version>36</version>
     </parent>
 
     <groupId>org.jboss.logging.benchmarks</groupId>
@@ -38,11 +38,8 @@
 
     <properties>
         <version.junit>4.12</version.junit>
-        <version.org.jboss.jdeparser>2.0.0.Final</version.org.jboss.jdeparser>
-        <version.org.openjdk.jmh>1.19</version.org.openjdk.jmh>
-
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <version.org.openjdk.jmh>1.22</version.org.openjdk.jmh>
+        <version.org.jboss.logmanager.jboss-logmanager>2.1.14.Final</version.org.jboss.logmanager.jboss-logmanager>
     </properties>
 
     <modules>
@@ -53,14 +50,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss.jdeparser</groupId>
-                <artifactId>jdeparser</artifactId>
-                <version>${version.org.jboss.jdeparser}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jboss.logging.benchmarks</groupId>
                 <artifactId>shared</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.logmanager</groupId>
+                <artifactId>jboss-logmanager</artifactId>
+                <version>${version.org.jboss.logmanager.jboss-logmanager}</version>
             </dependency>
             <dependency>
                 <groupId>org.openjdk.jmh</groupId>
